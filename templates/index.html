@@ -9,23 +9,28 @@
             margin: 40px;
             background: #f7f7f7;
         }
+
         .container {
-            max-width: 720px;
+            max-width: 860px;
             margin: 0 auto;
             background: #ffffff;
             padding: 24px;
             border-radius: 12px;
             box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
         }
+
         h1 {
             margin-bottom: 12px;
         }
+
         p {
             color: #555;
         }
+
         form {
             margin-top: 20px;
         }
+
         input[type="text"] {
             width: 100%;
             padding: 12px;
@@ -34,6 +39,7 @@
             border-radius: 8px;
             box-sizing: border-box;
         }
+
         button {
             padding: 12px 18px;
             border: none;
@@ -42,26 +48,42 @@
             border-radius: 8px;
             cursor: pointer;
         }
+
         .result {
             margin-top: 20px;
             padding: 16px;
             background: #f1f3f5;
             border-radius: 8px;
         }
+
         .label {
             font-weight: bold;
             margin-bottom: 8px;
         }
+
         .url-box {
             word-break: break-all;
             color: #222;
+            margin-top: 8px;
+        }
+
+        .preview-box {
+            margin-top: 12px;
+            padding: 12px;
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            white-space: pre-wrap;
+            word-break: break-word;
+            max-height: 420px;
+            overflow-y: auto;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>채용공고 요약 서비스</h1>
-        <p>채용공고 URL을 입력하면 나중에 요약/적합도 분석을 할 수 있게 만들 예정입니다.</p>
+        <p>채용공고 URL을 입력하면 공고 내용을 읽어와서 요약/적합도 분석의 기초 데이터를 만듭니다.</p>
 
         <form action="/analyze" method="post">
             <input type="text" name="job_url" placeholder="채용공고 URL을 입력하세요" value="{{ job_url }}">
@@ -69,10 +91,16 @@
         </form>
 
         <div class="result">
-            <div class="label">결과</div>
+            <div class="label">상태</div>
             <div>{{ message }}</div>
+
             {% if job_url %}
             <div class="url-box">{{ job_url }}</div>
+            {% endif %}
+
+            {% if preview %}
+            <div class="label" style="margin-top: 16px;">본문 미리보기</div>
+            <div class="preview-box">{{ preview }}</div>
             {% endif %}
         </div>
     </div>
